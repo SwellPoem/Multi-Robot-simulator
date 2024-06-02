@@ -1,0 +1,99 @@
+{
+  "map": "mappa.png",
+  "items": [
+      {
+          "id": 0,
+          "type": "robot",
+          "frame_id": "frame_robot0",
+          "namespace": "robot_0",
+          "radius": 0.3,
+          "max_rv" : 10.5,
+          "max_tv" : 10.0,
+          "pose": [
+              750,
+              1000,
+              -1.7
+          ],
+          "parent": -1
+      },
+      {
+          "id": 1,
+          "type": "lidar",
+          "frame_id": "frame_lidar0",
+          "namespace": "robot_0",
+          "fov": 1.6,
+          "vfov": 0.5,
+          "max_range": 10.0,
+          "num_beams": 100,
+          "pose": [
+              0,
+              0,
+              0
+          ],
+          "parent": 0
+      },
+      {
+        "id": 2,
+        "type": "robot",
+        "frame_id": "frame_robot1",
+        "namespace": "robot_1",
+        "radius": 0.3,
+        "max_rv" : 10.5,
+        "max_tv" : 10.0,
+        "pose": [
+            610,
+            1020,
+            1.04
+        ],
+        "parent": -1
+    },
+    {
+        "id": 3,
+        "type": "lidar",
+        "frame_id": "frame_lidar1",
+        "namespace": "robot_1",
+        "fov": 1.2,
+        "vfov": 0.5,
+        "max_range": 10.0,
+        "num_beams": 200,
+        "pose": [
+            0,
+            0,
+            0
+        ],
+        "parent": 2
+    },
+
+    {
+        "id": 4,
+        "type": "robot",
+        "frame_id": "frame_robot2",
+        "namespace": "robot_2",
+        "radius": 0.3,
+        "max_rv" : 10.5,
+        "max_tv" : 10.0,
+        "pose": [
+            735,
+            1100,
+            -0.5
+        ],
+        "parent": -1
+      },
+      {
+        "id": 5,
+        "type": "lidar",
+        "frame_id": "frame_lidar2",
+        "namespace": "robot_2",
+        "fov": 0.8,
+        "vfov": 0.5,
+        "max_range": 10.0,
+        "num_beams": 100,
+        "pose": [
+            0,
+            0,
+            0
+        ],
+        "parent": 4
+      }
+  ]
+}
