@@ -21,12 +21,6 @@ find_package(catkin REQUIRED COMPONENTS
     message_generation
 )
 
-
-add_message_files(
-    FILES
-    rodom.msg
-)
-
 generate_messages(
   DEPENDENCIES
   std_msgs
@@ -55,30 +49,4 @@ target_link_libraries(multi_robot_sim PUBLIC
     ${catkin_LIBRARIES}
     jsoncpp_lib
     
-)
-
-
-# Add simulation_node
-add_executable(simulation_node bin/simulation_node.cpp)
-target_include_directories(simulation_node PUBLIC 
-    include 
-    ${catkin_INCLUDE_DIRS}    
-    ${PCL_INCLUDE_DIRS}
-
-)
-target_link_libraries(simulation_node 
-    multi_robot_sim
-    ${catkin_LIBRARIES}
-    ${PCL_LIBRARIES}
-)
-
-# Add mover_node
-add_executable(mover_node bin/mover_node.cpp)
-target_include_directories(mover_node PUBLIC 
-    include 
-    ${catkin_INCLUDE_DIRS}
-)
-target_link_libraries(mover_node
-    multi_robot_sim
-    ${catkin_LIBRARIES}
 )
