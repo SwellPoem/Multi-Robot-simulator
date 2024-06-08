@@ -1,9 +1,6 @@
 #include "world.h"
 
-#include <opencv2/highgui.hpp>
-#include <opencv2/imgcodecs.hpp>
-#include <opencv2/imgproc.hpp>
-#include <stdexcept>
+//World class
 
 World::World(int id) {_id = id;}
 
@@ -35,7 +32,7 @@ void World::timeTick(float dt) {
 
 void World::add(WorldItem* item) { _items.push_back(item); }
 
-bool World::traverseBeam(Point_Int& endpoint, const Point_Int& origin,
+bool World::traverseRay(Point_Int& endpoint, const Point_Int& origin,
                          const float angle, const int max_range) {
   Point p0 = origin.cast<float>();
   const Point dp(cos(angle), sin(angle));
@@ -50,7 +47,7 @@ bool World::traverseBeam(Point_Int& endpoint, const Point_Int& origin,
   return true;
 }
 
-bool World::collides(const Point_Int& p, const int radius) const {
+bool World::checkCollision(const Point_Int& p, const int radius) const {
   if (!inside(p)) return true;
   int r2 = radius * radius;
   for (int r = -radius; r <= radius; ++r) {
@@ -65,6 +62,9 @@ bool World::collides(const Point_Int& p, const int radius) const {
   }
   return false;
 }
+
+
+//WorldItem class
 
 WorldItem::WorldItem(shared_ptr<World> w_, const Pose& p_)
     : world(w_), parent(nullptr), pose_in_parent(p_) {

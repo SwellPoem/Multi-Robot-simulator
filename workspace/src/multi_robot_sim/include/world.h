@@ -1,10 +1,5 @@
 #pragma once
 
-#include <Eigen/Dense>
-#include <opencv2/core.hpp>
-#include <string>
-#include <vector>
-
 #include "definitions.h"
 
 struct WorldItem;
@@ -13,33 +8,30 @@ class World {
  public:
   World(int id);
 
+  //non const -> return a reference to an element in position p, so can read and write the position of an element
+  //used when want to modify the grid_
   inline uint8_t& at(const Point_Int& p) { return _grid[cols * p.x() + p.y()]; }
 
-  inline uint8_t at(const Point_Int& p) const {
-    return _grid[cols * p.x() + p.y()];
-  }
+  //rturns a copy of the element at position p, so can only read the position of an element
+  //used only when want to access the value the
+  inline uint8_t at(const Point_Int& p) const { return _grid[cols * p.x() + p.y()]; }
 
-  bool collides(const Point_Int& p, const int radius) const;
+  bool checkCollision(const Point_Int& p, const int radius) const;
 
-  inline Point_Int world2grid(const Point& p) {
-    return Point_Int(p.x() * i_res, p.y() * i_res);
-  }
+  inline Point_Int world2grid(const Point& p) { return Point_Int(p.x() * i_res, p.y() * i_res); }
 
-  inline Point grid2world(const Point_Int& p) {
-    return Point(p.x() * res, p.y() * res);
-  }
+  inline Point grid2world(const Point_Int& p) { return Point(p.x() * res, p.y() * res); }
 
-  inline bool inside(const Point_Int& p) const {
-    return p.x() >= 0 && p.y() >= 0 && p.x() < rows && p.y() < cols;
-  }
+  inline bool inside(const Point_Int& p) const { return p.x() >= 0 && p.y() >= 0 && p.x() < rows && p.y() < cols; }
 
   void loadFromImage(const string filename_);
 
-  bool traverseBeam(Point_Int& endpoint, const Point_Int& origin,
-                    const float angle, const int max_range);
+  bool traverseRay(Point_Int& endpoint, const Point_Int& origin, const float angle, const int max_range);
 
   void draw();
+
   void timeTick(float dt);
+  
   void add(WorldItem* item);
 
   unsigned int rows = 0, cols = 0;
@@ -57,8 +49,9 @@ class World {
 class WorldItem {
  public:
   WorldItem(shared_ptr<World> w_, const Pose& p_ = Pose::Identity());
-  WorldItem(shared_ptr<WorldItem> parent_,
-            const Pose& p_ = Pose::Identity());
+  
+  WorldItem(shared_ptr<WorldItem> parent_, const Pose& p_ = Pose::Identity());
+  
   ~WorldItem();
 
   Pose poseInWorld();

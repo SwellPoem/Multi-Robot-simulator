@@ -4,11 +4,8 @@
 #include "lidar.h"
 
 #include <jsoncpp/json/json.h> 
-#include <optional>
-#include <variant>
 
 using WorldPointer = shared_ptr<World>;
-
 
 // Functions definitions
 void killTerminal();
