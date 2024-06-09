@@ -1,3 +1,4 @@
+//Description: Lidar class implementation file.
 #include "lidar.h"
 
 //first constructor, it initializes the lidar with the namespace, field of view, max range, number of rays, world and pose

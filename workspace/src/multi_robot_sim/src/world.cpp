@@ -1,3 +1,4 @@
+//Description: Implementation of the World and WorldItem classes.,
 #include "world.h"
 
 //World class

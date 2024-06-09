@@ -1,3 +1,4 @@
+//Description: Implementation of the Robot class
 #include "robot.h"
 
 //first constructor, it initializes the robot with the namespace, radius, max rotational velocity, max translational velocity, world and pose
@@ -58,7 +59,7 @@ void Robot::timeTick(float dt) {
   float msg_theta = msg_rotation.angle();
 
   // Publish odometry data
-  multi_robot_sim::rodom odom;
+  multi_robot_sim::robot_odometry odom;
   odom.x = msg_x;
   odom.y = msg_y;
   odom.theta = msg_theta;

@@ -1,3 +1,5 @@
+//Description: Lidar class header file
+
 #pragma once
 
 #include "definitions.h"

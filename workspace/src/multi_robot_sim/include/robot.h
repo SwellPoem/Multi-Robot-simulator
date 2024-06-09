@@ -1,3 +1,4 @@
+//Description: Header file for the Robot class.
 #pragma once
 
 #include "definitions.h"

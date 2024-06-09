@@ -1,3 +1,5 @@
+//Description: This file contains all the necessary includes and definitions for the project.
+
 #pragma once
 
 #include <map>
@@ -6,6 +8,20 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+
+#include <ros/ros.h>
+
+//for simulation_node.cpp
+#include <sys/time.h>
+#include <thread>   //for multithreading
+#include <chrono>   //for time functions
+#include <cmath>
+
+//for mover_node.cpp
+#include <termios.h>    //for terminal settings
+#include <unistd.h>   
+#include <signal.h>   //for signal handling
+#include <iomanip> // for std::fixed and std::setprecision
 
 //for world.h
 #include <string>
@@ -21,9 +37,8 @@
 #include <opencv2/imgproc.hpp>
 
 //for lidar.h
-#include "ros/ros.h"
-#include "sensor_msgs/LaserScan.h"
-#include "sensor_msgs/PointCloud2.h"
+#include <sensor_msgs/LaserScan.h>
+#include <sensor_msgs/PointCloud2.h>
 #include <pcl-1.10/pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
 #include <tf2_ros/static_transform_broadcaster.h>
@@ -35,10 +50,10 @@
 #include <tf2/convert.h> 
 
 //for robot.h
-#include "multi_robot_sim/rodom.h"
-#include "geometry_msgs/Twist.h"
-#include "geometry_msgs/TransformStamped.h"
-#include "nav_msgs/Odometry.h"
+#include <multi_robot_sim/robot_odometry.h>
+#include <geometry_msgs/Twist.h>
+#include <geometry_msgs/TransformStamped.h>
+#include <nav_msgs/Odometry.h>
 
 
 #include <Eigen/Dense>

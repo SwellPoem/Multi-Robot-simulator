@@ -1,3 +1,4 @@
+//Description: CHeader file for the class to represent the world and the items in it
 #pragma once
 
 #include "definitions.h"

@@ -1,3 +1,4 @@
+//Description: This file contains the implementation of custom functions.
 #include "utils.h"
 
 void killTerminal() {
