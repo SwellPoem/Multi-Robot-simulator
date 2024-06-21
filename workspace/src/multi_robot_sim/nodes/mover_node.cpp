@@ -90,12 +90,11 @@ int main(int argc, char** argv) {
             //otherwise if robot selected is valid, set that robot as current robot to control
             //print message of selected robot
             cout << "\nRobot " << robot_idx << " selected" << "\n" << endl;
-            for(int i =0; i<8; i++) {
+            for(int i =0; i<6; i++) {
                 cout << "\n";
             }
-            cout << "Move the robot with 'w', 'a', 's', 'd'.\n" << endl;
+            cout << "Move the robot with 'w', 'a', 's', 'd', and stop it with 'space'.\n" << endl;
             cout << "Press 'c' to change robot or 'q' to quit.\n" << endl;
-            cout << "Press 'space' to stop the robot.\n" << endl;
 
             //get the max linear and angular velocities of the selected robot
             //assumiong that the simulation_node is started befor the mover_node

@@ -2,7 +2,7 @@
 #include "robot.h"
 
 //first constructor, it initializes the robot with the namespace, radius, max rotational velocity, max translational velocity, world and pose
-Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, shared_ptr<World> w_, const Pose& pose_): 
+Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, World* w_, const Pose& pose_): 
       radius(radius_), 
       WorldItem(w_, pose_), 
       tv(0.0), 
@@ -15,7 +15,7 @@ Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, sh
       velocity_command_sub(nh.subscribe("/" + namespace_ + "/velocity_command", TERMINAL_QUEUE_SIZE, &Robot::velUpdate, this)) {}
 
 //second constructor, it initializes the robot with the namespace, radius, max rotational velocity, max translational velocity, parent and pose
-Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, shared_ptr<WorldItem> parent_, const Pose& pose_): 
+Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, WorldItem* parent_, const Pose& pose_): 
       radius(radius_), 
       WorldItem(parent_, pose_), 
       tv(0.0), 

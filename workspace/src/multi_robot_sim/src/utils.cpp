@@ -18,37 +18,21 @@ void clearTerminal() {
   cout << "\033[K";
 }
 
+Json::Value readJson(const string& in_path) {
+    cout << "Configuration file path: " << in_path << endl;
 
-int runShellCommand(string command) {
-  int result = system(command.c_str());
-  if (result != 0) {
-    ROS_ERROR("Failed to execute shell command");
-    return 1;
-  }
-  return 0;
-}
+    ifstream file(in_path, ifstream::binary);
+    if (!file) {
+        throw runtime_error("Could not open the file: " + in_path);
+    }
 
-Json::Value readJson( string in_path) {
-  
-  cout << "Configuration file path:" << in_path <<  endl;
-  Json::Value root; 
-  Json::CharReaderBuilder readerBuilder; 
+    Json::Value root;
+    Json::CharReaderBuilder readerBuilder;
+    string errs;
 
-   ifstream file(in_path,  ifstream::binary); 
-   cout <<in_path <<  endl;
-   string errs; 
+    if (!Json::parseFromStream(readerBuilder, file, &root, &errs)) {
+        throw runtime_error("Failed to parse JSON file: " + errs);
+    }
 
-  if (!file.is_open()) {
-    cerr << "Could not open the file: " << in_path <<  endl;
-    return Json::Value();
-  }
-  
-  bool parsingSuccessful = Json::parseFromStream(readerBuilder, file, &root, &errs);
-  if (!parsingSuccessful) {
-      cout << "Failed to parse JSON file: " << errs <<  endl;
-      return Json::Value();
-  }
-
-  file.close();
-  return root;
+    return root;
 }

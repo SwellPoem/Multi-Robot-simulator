@@ -2,7 +2,7 @@
 #include "lidar.h"
 
 //first constructor, it initializes the lidar with the namespace, field of view, max range, number of rays, world and pose
-Lidar::Lidar( string namespace_, float fov_, float max_range_, int num_rays_, shared_ptr<World> w, const Pose& pose_):
+Lidar::Lidar( string namespace_, float fov_, float max_range_, int num_rays_, World* w, const Pose& pose_):
       WorldItem(w, pose_),
       fov(fov_),
       max_range(max_range_),
@@ -13,7 +13,7 @@ Lidar::Lidar( string namespace_, float fov_, float max_range_, int num_rays_, sh
       scan_publisher(node_handler.advertise<sensor_msgs::PointCloud2>("/" +namespace_+ "/" +"scan", POINT_CLOUD_QUEUE_SIZE)) {}
 
 //second constructor, it initializes the lidar with the namespace, field of view, max range, number of rays, parent and pose
-Lidar::Lidar( string namespace_, float fov_, float max_range_, int num_rays_, shared_ptr<WorldItem> p_, const Pose& pose_):
+Lidar::Lidar( string namespace_, float fov_, float max_range_, int num_rays_, WorldItem* p_, const Pose& pose_):
       WorldItem(p_, pose_),
       fov(fov_),
       max_range(max_range_),
@@ -67,4 +67,4 @@ void Lidar::draw() {
     cv::line(world->display_image, cv::Point(origin.y(), origin.x()), cv::Point(epi.y(), epi.x()), cv::Scalar(200, 200, 200), 1);
     alpha += ang_resolution;
   }
-};
+}

@@ -1,7 +1,7 @@
 //Description: Implementation of the World and WorldItem classes.,
 #include "world.h"
 
-//World class
+/////////////World class/////////////
 
 World::World(int id) {_id = id;}
 
@@ -33,46 +33,48 @@ void World::timeTick(float dt) {
 
 void World::add(WorldItem* item) { _items.push_back(item); }
 
-bool World::traverseRay(Point_Int& endpoint, const Point_Int& origin,
-                         const float angle, const int max_range) {
-  Point p0 = origin.cast<float>();
-  const Point dp(cos(angle), sin(angle));
+//simulation of ray traveling in the world
+//the ray stops when it hits an obstacle or reaches the maximum range
+bool World::traverseRay(Point_Int& endpoint, const Point_Int& origin, const float angle, const int max_range) {
+  Point p0 = origin.cast<float>();    //start point of the ray cast to float
+  const Point dp(cos(angle), sin(angle));   //direction of the ray
   int range_to_go = max_range;
   while (range_to_go > 0) {
-    endpoint = Point_Int(p0.x(), p0.y());
-    if (!inside(endpoint)) return false;
-    if (at(endpoint) < 127) return true;
+    endpoint = Point_Int(p0.x(), p0.y());   //set the endpoint to the integer coordinates of the current point
+    if (!inside(endpoint)) return false;    //endpoint must be inside the world
+    if (at(endpoint) < 127) return true;    //if the value at the endpoint is less than 127, it is an obstacle
     p0 = p0 + dp;
-    --range_to_go;
+    --range_to_go;    //reduce the remaining range
   }
   return true;
 }
 
 bool World::checkCollision(const Point_Int& p, const int radius) const {
-  if (!inside(p)) return true;
+  if (!inside(p)) return true;    //point must be inside the world
   int r2 = radius * radius;
+  //itearate over a square of side 2*radius centered at p
   for (int r = -radius; r <= radius; ++r) {
     for (int c = -radius; c <= radius; ++c) {
-      Point_Int off(r, c);
+      Point_Int off(r, c);    //point offset
       if (off.squaredNorm() > r2) continue;
-      Point_Int p_test = p + Point_Int(r, c);
-      if (!inside(p_test)) return true;
+      Point_Int p_test = p + Point_Int(r, c);   //calculate the point to test adding the offset to p
+      if (!inside(p_test)) return true;   //point to test must be inside the world
 
-      if (at(p_test) < 127) return true;
+      if (at(p_test) < 127) return true;    //collision detected
     }
   }
   return false;
 }
 
 
-//WorldItem class
+////////WorldItem class/////////////
 
-WorldItem::WorldItem(shared_ptr<World> w_, const Pose& p_)
+WorldItem::WorldItem(World* w_, const Pose& p_)
     : world(w_), parent(nullptr), pose_in_parent(p_) {
   if (world) world->add(this);
 }
 
-WorldItem::WorldItem(shared_ptr<WorldItem> parent_, const Pose& p)
+WorldItem::WorldItem(WorldItem* parent_, const Pose& p)
     : world(parent_->world), parent(parent_), pose_in_parent(p) {
   if (world) world->add(this);
 }

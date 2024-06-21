@@ -6,10 +6,10 @@
 
 #include <jsoncpp/json/json.h> 
 
-using WorldPointer = shared_ptr<World>;
+using WorldPointer = World*;
 
 // Functions definitions
 void killTerminal();
 void clearTerminal();
 int runShellCommand(string command);
-Json::Value readJson(string in_path);
+Json::Value readJson(const string& in_path);

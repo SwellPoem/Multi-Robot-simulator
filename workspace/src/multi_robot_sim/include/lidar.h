@@ -1,5 +1,4 @@
 //Description: Lidar class header file
-
 #pragma once
 
 #include "definitions.h"
@@ -8,10 +7,10 @@
 class Lidar : public WorldItem {
  public:
     //first constructor
-    Lidar(string namespace_, float fov_, float max_range_, int num_rays_, shared_ptr<World> w, const Pose& pose_ = Pose::Identity());
+    Lidar(string namespace_, float fov_, float max_range_, int num_rays_, World* w, const Pose& pose_ = Pose::Identity());
 
     //second constructor
-    Lidar(string namespace_, float fov_, float max_range_, int num_rays_, shared_ptr<WorldItem> p_, const Pose& pose_ = Pose::Identity());
+    Lidar(string namespace_, float fov_, float max_range_, int num_rays_, WorldItem* p_, const Pose& pose_ = Pose::Identity());
 
     void timeTick(float dt) override;
 

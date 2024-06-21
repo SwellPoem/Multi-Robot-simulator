@@ -37,6 +37,7 @@
 #include <opencv2/imgproc.hpp>
 
 //for lidar.h
+#include <pcl/visualization/pcl_visualizer.h>
 #include <sensor_msgs/LaserScan.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <pcl-1.10/pcl/point_types.h>

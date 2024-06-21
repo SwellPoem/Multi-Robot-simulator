@@ -49,9 +49,9 @@ class World {
 
 class WorldItem {
  public:
-  WorldItem(shared_ptr<World> w_, const Pose& p_ = Pose::Identity());
+  WorldItem(World* w_, const Pose& p_ = Pose::Identity());
   
-  WorldItem(shared_ptr<WorldItem> parent_, const Pose& p_ = Pose::Identity());
+  WorldItem(WorldItem* parent_, const Pose& p_ = Pose::Identity());
   
   ~WorldItem();
 
@@ -60,7 +60,7 @@ class WorldItem {
   virtual void draw() = 0;
   virtual void timeTick(float dt) = 0;
 
-  shared_ptr<World> world = nullptr;
-  shared_ptr<WorldItem> parent = nullptr;
+  World* world = nullptr;
+  WorldItem* parent = nullptr;
   Pose pose_in_parent;
 };
