@@ -1,4 +1,5 @@
-#include "definitions.h"
+//Description: This file is the main file for the simulation node.#include "definitions.h"
+
 #include "world.h"
 #include "robot.h"
 #include "lidar.h"
