@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
   ros::NodeHandle nh("/");    //create a node handling for interacting 
  
   int NUM_ROBOTS = -1;
-  NUM_ROBOTS = stoi(argv[1]); // get number of robots from command line
+  NUM_ROBOTS = stoi(argv[1]); // get number of moving robots from command line
 
   //creates a vector of ros publishers, one for each robot that will pusblish messages
   vector<ros::Publisher> publishers_vector;

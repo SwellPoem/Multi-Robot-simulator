@@ -6,10 +6,7 @@
 
 class Lidar : public WorldItem {
  public:
-    //first constructor
-    Lidar(string namespace_, float fov_, float max_range_, int num_rays_, World* w, const Pose& pose_ = Pose::Identity());
-
-    //second constructor
+    //constructor
     Lidar(string namespace_, float fov_, float max_range_, int num_rays_, WorldItem* p_, const Pose& pose_ = Pose::Identity());
 
     void timeTick(float dt) override;

@@ -1,7 +1,7 @@
 //Description: Implementation of the Robot class
 #include "robot.h"
 
-//first constructor, it initializes the robot with the namespace, radius, max rotational velocity, max translational velocity, world and pose
+//constructor, it initializes the robot with the namespace, radius, max rotational velocity, max translational velocity, world parent and pose
 Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, World* w_, const Pose& pose_): 
       radius(radius_), 
       WorldItem(w_, pose_), 
@@ -13,21 +13,6 @@ Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, Wo
       //subscriber to the velocity command topic
       //the callback function that will be called when the message is received is velUpdate
       velocity_command_sub(nh.subscribe("/" + namespace_ + "/velocity_command", TERMINAL_QUEUE_SIZE, &Robot::velUpdate, this)) {}
-
-//second constructor, it initializes the robot with the namespace, radius, max rotational velocity, max translational velocity, parent and pose
-Robot::Robot( string namespace_, float radius_, float max_rv_, float max_tv_, WorldItem* parent_, const Pose& pose_): 
-      radius(radius_), 
-      WorldItem(parent_, pose_), 
-      tv(0.0), 
-      rv(0.0),
-      max_rv(max_rv_), 
-      max_tv(max_tv_),
-      //topic names firstly stored in variables
-      //then the publisher and subscriber are created 
-      odom_topic("/" + namespace_ + "/odom"),
-      velocity_command_topic("/" + namespace_ + "/velocity_command"),
-      odom_pub(nh.advertise<nav_msgs::Odometry>(odom_topic, TERMINAL_QUEUE_SIZE)),
-      velocity_command_sub(nh.subscribe(velocity_command_topic, TERMINAL_QUEUE_SIZE, &Robot::velUpdate, this)) {}
 
 //draw function to visualize the robot
 void Robot::draw() {

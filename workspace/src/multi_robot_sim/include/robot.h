@@ -6,11 +6,8 @@
 
 struct Robot : public WorldItem {
 
-      //first constructor
+      //constructor
       Robot(string namespace_, float radius_, float max_rv_, float max_tv_, World* w_, const Pose& pose_ = Pose::Identity());
-
-      //second constructor
-      Robot(string namespace_, float radius_, float max_rv_, float max_tv_, WorldItem* parent_, const Pose& pose_ = Pose::Identity());
 
       void draw() override;
 

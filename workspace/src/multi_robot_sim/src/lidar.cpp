@@ -1,18 +1,7 @@
 //Description: Lidar class implementation file.
 #include "lidar.h"
 
-//first constructor, it initializes the lidar with the namespace, field of view, max range, number of rays, world and pose
-Lidar::Lidar( string namespace_, float fov_, float max_range_, int num_rays_, World* w, const Pose& pose_):
-      WorldItem(w, pose_),
-      fov(fov_),
-      max_range(max_range_),
-      num_rays(num_rays_),
-      ranges(num_rays, -1.0),
-      //create a publisher to publish messages of type PointCloud2
-      //the topic is the namespace + scan
-      scan_publisher(node_handler.advertise<sensor_msgs::PointCloud2>("/" +namespace_+ "/" +"scan", POINT_CLOUD_QUEUE_SIZE)) {}
-
-//second constructor, it initializes the lidar with the namespace, field of view, max range, number of rays, parent and pose
+//constructor, it initializes the lidar with the namespace, field of view, max range, number of rays, parent and pose
 Lidar::Lidar( string namespace_, float fov_, float max_range_, int num_rays_, WorldItem* p_, const Pose& pose_):
       WorldItem(p_, pose_),
       fov(fov_),

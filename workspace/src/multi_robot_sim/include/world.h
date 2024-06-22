@@ -35,8 +35,8 @@ class World {
   
   void add(WorldItem* item);
 
-  unsigned int rows = 0, cols = 0;
-  unsigned int size = 0;
+  // only positive numbers for rows, cols and size
+  unsigned int rows = 0, cols = 0, size = 0;
   float res = 0.05, i_res = 20.0;
   int _id = 0;
   
@@ -57,6 +57,9 @@ class WorldItem {
 
   Pose poseInWorld();
 
+  //no implementation in this class
+  //pure virtual functions
+  //used in derived classes
   virtual void draw() = 0;
   virtual void timeTick(float dt) = 0;
 
