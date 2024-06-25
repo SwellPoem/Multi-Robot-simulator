@@ -11,13 +11,6 @@ void killTerminal() {
   #endif
 }
 
-void clearTerminal() {
-  // Move the cursor to the start position for the messages
-  cout << "\033[" << 12 << ";1H";
-  // Clear the line
-  cout << "\033[K";
-}
-
 Json::Value readJson(const string& in_path) {
     cout << "Configuration file path: " << in_path << endl;
 
