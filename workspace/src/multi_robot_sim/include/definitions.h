@@ -11,6 +11,9 @@
 
 #include <ros/ros.h>
 
+//for lidar_node.cpp
+#include <termios.h>
+
 //for simulation_node.cpp
 #include <sys/time.h>
 #include <thread>   //for multithreading
@@ -37,18 +40,23 @@
 #include <opencv2/imgproc.hpp>
 
 //for lidar.h
-#include <pcl/visualization/pcl_visualizer.h>
 #include <sensor_msgs/LaserScan.h>
 #include <sensor_msgs/PointCloud2.h>
+
+#include <pcl/visualization/pcl_visualizer.h>
 #include <pcl-1.10/pcl/point_types.h>
+#include <pcl/point_types.h>
 #include <pcl_conversions/pcl_conversions.h>
+#include <pcl_ros/point_cloud.h>
+
 #include <tf2_ros/static_transform_broadcaster.h>
-#include <geometry_msgs/TransformStamped.h>
 #include <tf2/LinearMath/Quaternion.h>
 #include <tf2/LinearMath/Transform.h>
 #include <tf2_ros/transform_broadcaster.h>
 #include <tf2_eigen/tf2_eigen.h>
 #include <tf2/convert.h> 
+
+#include <geometry_msgs/TransformStamped.h>
 
 //for robot.h
 #include <multi_robot_sim/robot_odometry.h>

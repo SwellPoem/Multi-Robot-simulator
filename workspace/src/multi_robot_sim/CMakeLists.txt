@@ -83,3 +83,15 @@ target_link_libraries(mover_node
     ${catkin_LIBRARIES}
 )
 
+# Add lidar_node
+add_executable(lidar_node nodes/lidar_node.cpp)
+target_include_directories(lidar_node PUBLIC 
+    include 
+    ${catkin_INCLUDE_DIRS}    
+    ${PCL_INCLUDE_DIRS}
+)
+target_link_libraries(lidar_node 
+    multi_robot_sim
+    ${catkin_LIBRARIES}
+    ${PCL_LIBRARIES}
+)

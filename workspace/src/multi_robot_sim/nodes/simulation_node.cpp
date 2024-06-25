@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 
   //if no config file is provided as a command line argument, print error message and exit
   if (argc < 2) {
-    cerr << "Error: no config.jsosn file provided:\n" << endl;
+    cerr << "Error: no config.jsosn file provided in command line\n" << endl;
     return 1;
   }
 

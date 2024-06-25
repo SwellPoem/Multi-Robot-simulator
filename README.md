@@ -3,11 +3,11 @@
 ## World and Objects
 The world is represented by a grid and an image stored in the map folder. The image is loaded using OpenCV.<br />
 In the world 3 robots and 3 lidars are present, represented as black circles with a series of rays navigating in the map.<br />
-The robot and the lidar parameters are declared in the Json file called ``` config.json ```, and include several features like the maximum rotational and translational velocity for the robot, and the field of view aperture and the number of beams fdor the lidar. Robot and the lidars are all world items, so their classes are declared as WorldItem subclasses.
+The robot and the lidar parameters are declared in the Json file called ``` config.json ```, and include several features like the maximum rotational and translational velocity for the robot, and the field of view aperture and the number of beams for the lidar. Robot and the lidars are all world items, so their classes are declared as WorldItem subclasses.
 
 ## ROS nodes
 The ROS version used for the project is ROS Noetic.<br />
-Two ROS nodes files are present:
+Three ROS nodes files are present:
 
 ``` simulation_node ``` : controls the representational part of the world, extracting the map from the Json file and loading it into a world object. From the Json file it also reads the properties of the objects, robots and lidars, creating and storing them in vectors of shared pointers. The main loop redraws the world advancing by a certain time step.
 
@@ -16,6 +16,8 @@ Two ROS nodes files are present:
 - 'space bar' to stop the movement
 - ‘c’ for changing the robot to control
 - ‘q’ for exit the motion control
+
+``` lidar_node ``` : handles the print of the point cloud data retrieved from the lidars. The prints are obtained selecting the lidar of interest in the terminal feed and pressing the 'enter' key to display.
 
 The print of the linear and angular velocity of the drones, and the odometry measurements are present in the terminal feeds, updating as the drones move.
 
@@ -34,6 +36,7 @@ The print of the linear and angular velocity of the drones, and the odometry mea
     │               ├── package.xml
     │               ├── nodes
     │               │    ├── mover_node.cpp
+    │               │    ├── lidar_node.cpp
     │               │    └── simulation_node.cpp
     │               ├── include
     │               │    ├── lidar.h
@@ -48,6 +51,10 @@ The print of the linear and angular velocity of the drones, and the odometry mea
     │                    ├── robot.cpp
     │                    ├── utils.cpp
     │                    └── world.cpp
+    ├──open_all.sh
+    ├──run_lidar.sh
+    ├──run_mover.sh
+    ├──run_simulation.sh
     └── README.md
 ```
 
@@ -59,24 +66,9 @@ source /opt/ros/noetic/setup.bash
 roscore
 ```
 How to compile:
-In bash nr. 2:
+In bash nr. 2 in the folder ``` robot_programming_project ``` :
 ```code
-cd ./workspace
-source /opt/ros/noetic/setup.bash
-catkin build
-source ./devel/setup.bash
+chmod +x open_all.sh
+./open_all.sh
 ```
-To start the sumulation node:
-In bash nr. 2:
-```code
-rosrun multi_robot_sim simulation_node config.json
-```
-To start the mover node:
-In bash nr. 3:
-```code
-cd ./workspace
-source /opt/ros/noetic/setup.bash
-source ./devel/setup.bash
-rosrun multi_robot_sim mover_node 'NUM_ROBOTS'
-```
-
+The ``` open_all.sh ``` file allows the execution of other three bash scripts, ``` run_simulation.sh ```, ``` run_mover.sh ``` and ``` run_lidar.sh ```, that start the thee ROS nodes of the project.

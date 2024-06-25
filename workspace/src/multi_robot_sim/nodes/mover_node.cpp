@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
   ros::NodeHandle nh("/");    //create a node handling for interacting 
  
   int NUM_ROBOTS = -1;
-  NUM_ROBOTS = stoi(argv[1]); // get number of moving robots from command line
+  NUM_ROBOTS = stoi(argv[1]); // get number of robots from command line
 
   //creates a vector of ros publishers, one for each robot that will pusblish messages
   vector<ros::Publisher> publishers_vector;
@@ -67,13 +67,13 @@ int main(int argc, char** argv) {
       tcsetattr(STDIN_FILENO, TCSANOW, &oldt);
 
       if (clear) {
-        system("cls||clear"); // clear terminal screen
+        system("clear"); // clear terminal screen
         clear = false;
       }
 
       while (true) {
 
-        cout << "\nSelect a robot inputing a number from 0 to " << NUM_ROBOTS-1 << endl; 
+        cout << "\nSelect a Robot inputing a number from 0 to " << NUM_ROBOTS-1 << endl; 
         cin >> input;
 
         //kill terminal condition
@@ -90,11 +90,11 @@ int main(int argc, char** argv) {
             //otherwise if robot selected is valid, set that robot as current robot to control
             //print message of selected robot
             cout << "\nRobot " << robot_idx << " selected" << "\n" << endl;
-            for(int i =0; i<6; i++) {
-                cout << "\n";
-            }
+            // for(int i =0; i<6; i++) {
+            //     cout << "\n";
+            // }
             cout << "Move the robot with 'w', 'a', 's', 'd', and stop it with 'space'.\n" << endl;
-            cout << "Press 'c' to change robot or 'q' to quit.\n" << endl;
+            cout << "Press 'c' to change Robot or 'q' to quit.\n" << endl;
 
             //get the max linear and angular velocities of the selected robot
             //assumiong that the simulation_node is started befor the mover_node
@@ -137,7 +137,7 @@ int main(int argc, char** argv) {
     switch (ch) {
       //forward
       case 'w':
-        clearTerminal();
+        system("clear");
         cout << "forward\n";
         if (current_linear_velocity + 0.2 <= max_tv) {
           current_linear_velocity += 0.2;
@@ -147,7 +147,7 @@ int main(int argc, char** argv) {
       
       //backward
       case 's': 
-        clearTerminal(); 
+        system("clear"); 
         cout << "back\n"; 
         if (current_linear_velocity - 0.2 >= -max_tv) {
           current_linear_velocity -= 0.2;
@@ -157,7 +157,7 @@ int main(int argc, char** argv) {
       
       //right
       case 'd': 
-        clearTerminal(); 
+        system("clear"); 
         cout << "right\n"; 
         if (current_angular_velocity - 0.1 >= -max_rv) {
           current_angular_velocity -= 0.1;
@@ -167,7 +167,7 @@ int main(int argc, char** argv) {
       
       //left
       case 'a': 
-        clearTerminal(); 
+        system("clear"); 
         cout << "left\n"; 
         if (current_angular_velocity + 0.1 <= max_rv) {
           current_angular_velocity += 0.1;
@@ -177,7 +177,7 @@ int main(int argc, char** argv) {
       
       //space to reset velocities to 0
       case ' ':
-        clearTerminal();
+        system("clear");
         cout << "stop\n";
         current_linear_velocity = 0.0;
         current_angular_velocity = 0.0;
@@ -186,7 +186,7 @@ int main(int argc, char** argv) {
       
       //change robot
       case 'c': {
-        clearTerminal(); 
+        system("clear"); 
         select_robot = true; 
         clear = true;
         break;
@@ -194,12 +194,16 @@ int main(int argc, char** argv) {
 
       //close
       case 'q': {
-        clearTerminal(); 
+        system("clear"); 
         cout << "Closing...\n"; cout.flush(); 
         quit = true;
         break;
       }
-      default: clearTerminal(); cerr << "Invalid command: " << ch << endl; cout.flush(); break;
+      default: 
+        system("clear");
+        cerr << "Invalid command: " << ch << endl;
+        cout.flush();
+        break;
     }
 
     // Update velocities

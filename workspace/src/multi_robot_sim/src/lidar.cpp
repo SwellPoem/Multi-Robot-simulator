@@ -23,18 +23,34 @@ void Lidar::timeTick(float dt) {
   float ang_resolution = fov / num_rays;  //angle between each ray
   float alpha = Rot2D(piw.linear()).angle() - fov / 2; //starting angle for the firts ray
   float int_range = max_range * world->i_res; //max range of the lidar
+  
+  pcl::PointCloud<pcl::PointXYZ> cloud;
+  cloud.header.frame_id = "lidar_frame";
 
   //for each ray, calculate the range value
   for (int i = 0; i < num_rays; ++i) {
-    Point_Int endpoint;
-    ranges[i] = max_range;
+    Point_Int endpoint; //end point of the ray
+    ranges[i] = max_range;  //range of the current ray = max_range
+    //traverseRay call: update of the end point and retunr true if obstacle is hit
     bool result = world->traverseRay(endpoint, origin, alpha, int_range);
+    //if an obstacle is hit
     if (result) {
-      Point_Int delta = endpoint - origin;
-      ranges[i] = delta.norm() * world->res;
+      Point_Int delta = endpoint - origin;   //range to the obstacle
+      ranges[i] = delta.norm() * world->res;  //update the range value
     }
+    //endpoint grid coordinates to world coordinates
+    Point p_world = world->grid2world(endpoint);
+
+    //add the endpoint to the point cloud
+    cloud.points.push_back(pcl::PointXYZ(p_world.x(), p_world.y(), 0));
+    
+    //prepare alpha for the next ray
     alpha += ang_resolution;
   }
+  
+  sensor_msgs::PointCloud2 output;
+  pcl::toROSMsg(cloud, output);
+  scan_publisher.publish(output);
 }
 
 //visualize the lidar readings
