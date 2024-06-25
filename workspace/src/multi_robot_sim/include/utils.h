@@ -10,6 +10,5 @@ using WorldPointer = World*;
 
 // Functions definitions
 void killTerminal();
-void clearTerminal();
 int runShellCommand(string command);
 Json::Value readJson(const string& in_path);
