@@ -69,7 +69,12 @@ void Lidar::draw() {
     Point_Int epi = world->world2grid(p_world);
     //opencv function to draw a line
     //image where to draw, start point, end point, color, thickness
-    cv::line(world->display_image, cv::Point(origin.y(), origin.x()), cv::Point(epi.y(), epi.x()), cv::Scalar(200, 200, 200), 1);
+    if (i == num_rays / 2) {
+      // Draw the central line with a darker color
+      cv::line(world->display_image, cv::Point(origin.y(), origin.x()), cv::Point(epi.y(), epi.x()), cv::Scalar(30, 30, 30), 1);
+    } else {
+      cv::line(world->display_image, cv::Point(origin.y(), origin.x()), cv::Point(epi.y(), epi.x()), cv::Scalar(200, 200, 200), 1);
+    }
     alpha += ang_resolution;
   }
 }
