@@ -61,20 +61,32 @@ void Robot::velUpdate(const geometry_msgs::Twist::ConstPtr& msg) {
   if (msg->angular.z > max_rv) rv = max_rv;
   else rv = msg->angular.z;
 
-  printOdometry();
-}
+  //the position retrived from the odometry is retrived from the pose_in_parent
+  //the pose_in_parent is the pose of the robot in the parent's frame
+  //since the robot is the child of the world
+  //the parent is the world and it's position is wrt the world frame
 
-//print the robot's odometry
-void Robot::printOdometry() {
-  // translational component extraction
+  // Translational component extraction
   Point msg_translation = pose_in_parent.translation();
   float msg_x = msg_translation.x();
   float msg_y = msg_translation.y();
 
-  // rotational component extraction
+  // Rotational component extraction
   Rot2D msg_rotation(pose_in_parent.linear());
   float msg_theta = msg_rotation.angle();
 
+  // Publish odometry data
+  multi_robot_sim::robot_odometry odom;
+  odom.x = msg_x;
+  odom.y = msg_y;
+  odom.theta = msg_theta;
+  odom_pub.publish(odom);
+
+  printOdometry(odom);
+}
+
+//print the robot's odometry
+void Robot::printOdometry(const multi_robot_sim::robot_odometry& odom) {
   // print of odometry
-  cout << "Odometry - X: " << msg_x << ", Y: " << msg_y << ", Theta: " << msg_theta << std::endl;
+  cout << "Odometry - X: " << odom.x << ", Y: " << odom.y << ", Theta: " << odom.theta << endl;
 }

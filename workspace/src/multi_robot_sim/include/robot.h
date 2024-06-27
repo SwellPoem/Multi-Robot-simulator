@@ -17,7 +17,7 @@ struct Robot : public WorldItem {
       void velUpdate(const geometry_msgs::Twist::ConstPtr& msg);
       
       //function to print the odometry data
-      void printOdometry();
+      void printOdometry(const multi_robot_sim::robot_odometry& odom);
 
       float radius;
       float tv = 0, rv = 0;
