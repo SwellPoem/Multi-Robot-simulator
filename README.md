@@ -1,4 +1,4 @@
-# Multi-Robot Simulator - robot programming project
+# Multi-Robot Simulator - ROS
 
 ## World and Objects
 The world is represented by a grid and an image stored in the map folder. The image is loaded using OpenCV.<br />
